@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Professeurs</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="theme-dark">
+<div class="container">
+    <div class="top-bar">
+        <h1>Professeurs</h1>
+        <a class="btn btn-outline btn-sm" th:href="@{/admin/dashboard}">Accueil admin</a>
+    </div>
+
+    <div class="card">
+        <h2>Ajouter un professeur</h2>
+        <form th:action="@{/admin/professors}" th:object="${newProfessor}" method="post">
+            <input th:field="*{fullName}" placeholder="Nom complet" required>
+            <input th:field="*{email}" placeholder="Email" required>
+            <button type="submit">Ajouter</button>
+        </form>
+    </div>
+
+    <div class="card card-spaced">
+        <h2>Liste des professeurs</h2>
+        <div class="table-scroll">
+            <table>
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th class="col-actions">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p : ${professors}">
+                    <td th:text="${p.fullName}"></td>
+                    <td th:text="${p.email}"></td>
+                    <td class="col-actions">
+                        <div class="table-actions">
+                            <a class="btn btn-sm" th:href="@{/admin/professors/{id}/edit(id=${p.id})}">Modifier</a>
+                            <form th:action="@{/admin/professors/{id}/delete(id=${p.id})}" method="post" class="form-inline">
+                                <button type="submit" class="btn btn-sm btn-danger"
+                                        onclick="return confirm('Supprimer ce professeur, ses matieres et toutes les notes associees ?');">Supprimer</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

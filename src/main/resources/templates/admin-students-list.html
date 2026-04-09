@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Etudiants</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="theme-dark">
+<div class="container">
+    <div class="top-bar">
+        <h1>Etudiants</h1>
+        <a class="btn btn-outline btn-sm" th:href="@{/admin/dashboard}">Accueil admin</a>
+    </div>
+
+    <div class="card">
+        <h2>Ajouter un etudiant</h2>
+        <form th:action="@{/admin/students}" th:object="${newStudent}" method="post">
+            <input th:field="*{studentId}" placeholder="ID etudiant" required>
+            <input th:field="*{fullName}" placeholder="Nom complet" required>
+            <button type="submit">Ajouter</button>
+        </form>
+    </div>
+
+    <div class="card card-spaced">
+        <h2>Liste des etudiants</h2>
+        <div class="table-scroll">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th class="col-actions">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="s : ${students}">
+                    <td th:text="${s.studentId}"></td>
+                    <td th:text="${s.fullName}"></td>
+                    <td class="col-actions">
+                        <div class="table-actions">
+                            <a class="btn btn-sm" th:href="@{/admin/students/{id}/edit(id=${s.id})}">Modifier</a>
+                            <form th:action="@{/admin/students/{id}/delete(id=${s.id})}" method="post" class="form-inline">
+                                <button type="submit" class="btn btn-sm btn-danger"
+                                        onclick="return confirm('Supprimer cet etudiant et toutes ses notes ?');">Supprimer</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

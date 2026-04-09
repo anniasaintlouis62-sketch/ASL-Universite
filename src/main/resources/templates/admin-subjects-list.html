@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Matieres</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="theme-dark">
+<div class="container">
+    <div class="top-bar">
+        <h1>Matieres</h1>
+        <a class="btn btn-outline btn-sm" th:href="@{/admin/dashboard}">Accueil admin</a>
+    </div>
+
+    <div class="card">
+        <h2>Ajouter une matiere</h2>
+        <form th:action="@{/admin/subjects}" th:object="${newSubject}" method="post">
+            <input th:field="*{name}" placeholder="Nom matiere" required>
+            <input th:field="*{coefficient}" type="number" min="1" step="0.5" required>
+            <select th:field="*{professor}" required>
+                <option value="">Choisir professeur</option>
+                <option th:each="p : ${professors}" th:value="${p.id}" th:text="${p.fullName}"></option>
+            </select>
+            <button type="submit">Ajouter</button>
+        </form>
+    </div>
+
+    <div class="card card-spaced">
+        <h2>Liste des matieres</h2>
+        <div class="table-scroll">
+            <table>
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Coefficient</th>
+                    <th>Professeur</th>
+                    <th class="col-actions">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="m : ${subjects}">
+                    <td th:text="${m.name}"></td>
+                    <td th:text="${m.coefficient}"></td>
+                    <td th:text="${m.professor.fullName}"></td>
+                    <td class="col-actions">
+                        <div class="table-actions">
+                            <a class="btn btn-sm" th:href="@{/admin/subjects/{id}/edit(id=${m.id})}">Modifier</a>
+                            <form th:action="@{/admin/subjects/{id}/delete(id=${m.id})}" method="post" class="form-inline">
+                                <button type="submit" class="btn btn-sm btn-danger"
+                                        onclick="return confirm('Supprimer cette matiere et toutes les notes associees ?');">Supprimer</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

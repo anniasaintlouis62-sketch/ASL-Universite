@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Connexion Etudiant</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="theme-dark student-space">
+<div class="auth-shell">
+    <div class="auth-brand">
+        <div class="auth-brand-badge">Etudiant</div>
+        <h1>Connexion etudiant</h1>
+        <p class="muted">Consultez votre bulletin et telechargez-le en PDF.</p>
+    </div>
+    <div class="card card-narrow">
+        <h2>Identifiants</h2>
+        <p class="muted">Veuillez rentrer votre code d'etudiant</p>
+        <form th:action="@{/login}" method="post">
+            <label for="username">Identifiant etudiant</label>
+            <input id="username" type="text" name="username" required autocomplete="username">
+
+            <button type="submit">Se connecter</button>
+        </form>
+        <p th:if="${param.error}" class="error">Identifiants invalides.</p>
+        <a class="link-back" th:href="@{/login}">Retour au portail</a>
+    </div>
+</div>
+</body>
+</html>

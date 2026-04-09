@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tableau de bord Admin</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="theme-dark">
+<div class="container">
+    <div class="top-bar">
+        <h1>Administration</h1>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Deconnexion</button>
+        </form>
+    </div>
+
+    <p class="muted">Choisissez une section pour gerer les donnees.</p>
+
+    <div class="admin-nav-grid">
+        <a class="admin-nav-card" th:href="@{/admin/etudiants}">
+            <span class="admin-nav-title">Etudiants</span>
+            <span class="admin-nav-desc">Liste, ajout, modification et suppression</span>
+        </a>
+        <a class="admin-nav-card" th:href="@{/admin/professeurs}">
+            <span class="admin-nav-title">Professeurs</span>
+            <span class="admin-nav-desc">Liste, ajout, modification et suppression</span>
+        </a>
+        <a class="admin-nav-card" th:href="@{/admin/matieres}">
+            <span class="admin-nav-title">Matieres</span>
+            <span class="admin-nav-desc">Liste, ajout, modification et suppression</span>
+        </a>
+        <a class="admin-nav-card" th:href="@{/admin/notes}">
+            <span class="admin-nav-title">Notes</span>
+            <span class="admin-nav-desc">Par matiere et par annee academique</span>
+        </a>
+    </div>
+</div>
+</body>
+</html>

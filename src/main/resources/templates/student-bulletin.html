@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bulletin Etudiant</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="theme-dark student-space">
+<div class="container">
+    <div class="top-bar">
+        <h1>Mon bulletin</h1>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Deconnexion</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>Informations</h2>
+        <p><strong>Etudiant :</strong> <span th:text="${bulletin.studentName}"></span></p>
+        <p><strong>ID :</strong> <span th:text="${bulletin.studentId}"></span></p>
+        <form th:action="@{/etudiant/bulletin}" method="get" class="table-actions">
+            <select name="academicYear" required>
+                <option th:each="y : ${academicYears}" th:value="${y}" th:selected="${selectedYear == y}" th:text="${y}"></option>
+            </select>
+            <button type="submit" class="btn btn-sm">Voir bulletin</button>
+        </form>
+        <p><strong>Annee :</strong> <span th:text="${bulletin.academicYear}"></span></p>
+
+        <h2 class="card-section">Notes</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Matiere</th>
+                <th>Professeur</th>
+                <th>Coefficient</th>
+                <th>Note</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="l : ${bulletin.lines}">
+                <td th:text="${l.subjectName}"></td>
+                <td th:text="${l.professorName}"></td>
+                <td th:text="${l.coefficient}"></td>
+                <td th:text="${l.grade}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3>Moyenne : <span th:text="${#numbers.formatDecimal(bulletin.average, 1, 2)}"></span></h3>
+        <h3>Mention : <span th:text="${bulletin.mention}"></span></h3>
+        <a class="btn" th:href="@{/etudiant/bulletin/pdf(academicYear=${selectedYear})}">Telecharger le bulletin PDF</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Modifier professeur</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="theme-dark">
+<div class="container">
+    <div class="card card-narrow">
+        <h2>Modifier le professeur</h2>
+        <form th:action="@{/admin/professors/{id}(id=${professor.id})}" method="post">
+            <label for="fullName">Nom complet</label>
+            <input id="fullName" type="text" name="fullName" th:value="${professor.fullName}" required>
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email" th:value="${professor.email}" required>
+            <button type="submit">Enregistrer</button>
+        </form>
+        <a class="link-back" th:href="@{/admin/professeurs}">Retour a la liste</a>
+    </div>
+</div>
+</body>
+</html>

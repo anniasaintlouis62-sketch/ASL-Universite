@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Modifier matiere</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="theme-dark">
+<div class="container">
+    <div class="card card-narrow">
+        <h2>Modifier la matiere</h2>
+        <form th:action="@{/admin/subjects/{id}(id=${subject.id})}" method="post">
+            <label for="name">Nom</label>
+            <input id="name" type="text" name="name" th:value="${subject.name}" required>
+            <label for="coefficient">Coefficient</label>
+            <input id="coefficient" type="number" name="coefficient" min="1" step="0.5" th:value="${subject.coefficient}" required>
+            <label for="professorId">Professeur</label>
+            <select id="professorId" name="professorId" required>
+                <option th:each="p : ${professors}"
+                        th:value="${p.id}"
+                        th:selected="${p.id == subject.professor.id}"
+                        th:text="${p.fullName}"></option>
+            </select>
+            <button type="submit">Enregistrer</button>
+        </form>
+        <a class="link-back" th:href="@{/admin/matieres}">Retour a la liste</a>
+    </div>
+</div>
+</body>
+</html>

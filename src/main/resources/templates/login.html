@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Connexion - Universite</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="theme-dark">
+<div class="auth-shell">
+    <div class="auth-brand">
+        <div class="auth-brand-badge">ASL Universite</div>
+        <h1>Portail Universitaire</h1>
+        <p class="muted">Acces securise a l'espace administration et a l'espace etudiant.</p>
+    </div>
+    <div class="card card-narrow">
+        <h2>Choisir une connexion</h2>
+        <p class="muted">Selectionnez le profil correspondant a votre role.</p>
+        <div class="grid-2 portal-actions">
+            <a class="btn" th:href="@{/login/admin}">Espace administrateur</a>
+            <a class="btn btn-outline" th:href="@{/login/etudiant}">Espace etudiant</a>
+        </div>
+        <p th:if="${param.logout}" class="success">Vous etes deconnecte.</p>
+    </div>
+</div>
+</body>
+</html>
